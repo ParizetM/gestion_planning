@@ -11,11 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('motifs', function (Blueprint $table) {
+        Schema::create('users', function (Blueprint $table) {
             $table->id();
             $table->string('nom', 255);
-            $table->longText('description');
-            $table->boolean('is_accessible_salarie')->default(false);
+            $table->string('prenom', 255);
+            $table->boolean('salaries')->default(false);
             $table->timestamps();
         });
     }
@@ -25,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('motifs');
+        Schema::dropIfExists('users');
     }
 };
