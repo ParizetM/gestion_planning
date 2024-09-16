@@ -36,7 +36,23 @@ class UserController extends Controller
      */
     public function show(User $user)
     {
-        //
+        $user = User::with('absences')->findOrFail($user->id);
+
+        // Renvoyer la réponse en JSON avec les informations de l'utilisateur et ses absences
+        return response()->json([
+            'id' => $user->id,
+            'nom' => $user->nom,
+            'prenom' => $user->prenom,
+            'salaries' => $user->salaries,
+            'absences' => $user->absences->map(function ($absence) {
+                return [
+                    'id' => $absence->id,
+                    'motif' => $absence->motif->nom,
+                    'date_debut' => $absence->date_debut,
+                    'date_fin' => $absence->date_fin,
+                ];
+            }),
+        ]);
     }
 
     /**

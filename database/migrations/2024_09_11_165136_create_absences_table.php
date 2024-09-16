@@ -15,8 +15,8 @@ return new class extends Migration
             $table->id();
             $table->date('date_debut');
             $table->date('date_fin');
-            $table->foreignId('user_id')->constrained();
-            $table->foreignId('motif_id')->constrained();
+            $table->foreignIdFor('App\Models\User')->constrained();
+            $table->foreignIdFor('App\Models\Motif')->constrained();
             $table->timestamps();
         });
     }

@@ -5,9 +5,9 @@ namespace Database\Factories;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\User>
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\motif>
  */
-class UserFactory extends Factory
+class motifFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -17,9 +17,9 @@ class UserFactory extends Factory
     public function definition(): array
     {
         return [
-            'nom' => $this->faker->lastName,
-            'prenom' => $this->faker->firstName,
-            'salaries' => $this->faker->boolean(),
+            'nom' => $this->faker->word,
+            'description' => $this->faker->text,
+            'is_accessible_salarie' => $this->faker->boolean,
         ];
     }
 }
