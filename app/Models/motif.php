@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 /**
- * 
+ *
  *
  * @property int $id
  * @property string $nom
@@ -28,4 +28,8 @@ use Illuminate\Database\Eloquent\Model;
 class motif extends Model
 {
     use HasFactory;
+    public function absences()
+    {
+        return $this->hasMany(Absence::class);
+    }
 }

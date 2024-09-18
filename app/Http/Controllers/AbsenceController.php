@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Absence;
+use App\Models\User;
+use App\Models\Motif;
 use Illuminate\Http\Request;
 
 class AbsenceController extends Controller
@@ -13,7 +15,7 @@ class AbsenceController extends Controller
     public function index()
     {
         $absences = Absence::with(['user', 'motif'])->get();
-        return view('absences', ['absences' => $absences]);
+        return view('absences.index', ['absences' => $absences]);
     }
 
     /**
@@ -21,7 +23,12 @@ class AbsenceController extends Controller
      */
     public function create()
     {
-        //
+        $motifs = motif::all();
+        $users = User::all();
+        return view('absences.create', [
+            'motifs' => $motifs,
+            'users' => $users,
+    ]);
     }
 
     /**
@@ -29,7 +36,13 @@ class AbsenceController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $absence = new Absence();
+        $absence->user()->associate($request->input('user_id'));
+        $absence->motif()->associate($request->input('motif_id'));
+        $absence->date_debut = $request->input('date_debut');
+        $absence->date_fin = $request->input('date_fin');
+        $absence->save();
+        return redirect()->route('absences.index');
     }
 
     /**
@@ -55,7 +68,7 @@ class AbsenceController extends Controller
         //     'date_debut' => $absence->date_debut,
         //     'date_fin' => $absence->date_fin,
         // ];
-        return view('absence', ['absence' => $absence]);
+        return view('absences.show', ['absence' => $absence]);
     }
 
     /**
@@ -63,7 +76,13 @@ class AbsenceController extends Controller
      */
     public function edit(Absence $absence)
     {
-        //
+        $users = User::all();
+        $motifs = Motif::all();
+        return view('absences.edit', [
+            'absence' => $absence,
+            'users' => $users,
+            'motifs' => $motifs
+        ]);
     }
 
     /**
@@ -71,7 +90,12 @@ class AbsenceController extends Controller
      */
     public function update(Request $request, Absence $absence)
     {
-        //
+        $absence->user()->associate($request->input('user_id'));
+        $absence->motif()->associate($request->input('motif_id'));
+        $absence->date_debut = $request->input('date_debut');
+        $absence->date_fin = $request->input('date_fin');
+        $absence->save();
+        return redirect()->route('absences.index');
     }
 
     /**
@@ -79,6 +103,7 @@ class AbsenceController extends Controller
      */
     public function destroy(Absence $absence)
     {
-        //
+        $absence->delete();
+        return redirect()->route('absences.index');
     }
 }

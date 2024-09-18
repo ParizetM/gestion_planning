@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Absence;
 use App\Models\motif;
 use Illuminate\Http\Request;
 
@@ -12,7 +13,9 @@ class MotifController extends Controller
      */
     public function index()
     {
-        //
+
+        $motifs = motif::all();
+        return view('motifs.index', ['motifs' => $motifs]);
     }
 
     /**
@@ -20,7 +23,7 @@ class MotifController extends Controller
      */
     public function create()
     {
-        //
+        return view('motifs.create');
     }
 
     /**
@@ -28,7 +31,12 @@ class MotifController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $motif = new motif();
+        $motif->nom = $request->input('nom');
+        $motif->description = $request->input('description');
+        $motif->is_accessible_salarie = $request->has('is_accessible_salarie') ? 1 : 0;
+        $motif->save();
+        return redirect()->route('motifs.index');
     }
 
     /**
@@ -36,7 +44,8 @@ class MotifController extends Controller
      */
     public function show(motif $motif)
     {
-        //
+
+        return view('motifs.show',['motif' => $motif]);
     }
 
     /**
@@ -44,7 +53,7 @@ class MotifController extends Controller
      */
     public function edit(motif $motif)
     {
-        //
+        return view('motifs.edit',['motif' => $motif]);
     }
 
     /**
@@ -52,14 +61,24 @@ class MotifController extends Controller
      */
     public function update(Request $request, motif $motif)
     {
-        //
+        $motif->nom = $request->input('nom');
+        $motif->description = $request->input('description');
+        $motif->is_accessible_salarie = $request->has('is_accessible_salarie') ? 1 : 0;
+        $motif->save();
+        return redirect()->route('motifs.show',$motif);
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(motif $motif)
+    public function destroy(Motif $motif)
     {
-        //
+        // Check for related Absence records and handle them
+        if ($motif->absences()->count() > 0) {
+            return redirect()->route('motifs.show',$motif);
+        }
+
+        $motif->delete();
+        return redirect()->route('motifs.index');
     }
 }
