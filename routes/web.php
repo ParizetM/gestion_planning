@@ -9,5 +9,8 @@ Route::get('/', function () {
 });
 
 Route::get('/users/{user}', [UserController::class, 'show']);
-Route::get('/absences/{absence}', [AbsenceController::class, 'show']);
+Route::get('/absences', [AbsenceController::class, 'index'])->name('absences.index');
+Route::get('/absences/{absence}', [AbsenceController::class, 'show'])->name('absences.show');
+
+
 

@@ -12,7 +12,8 @@ class AbsenceController extends Controller
      */
     public function index()
     {
-        //
+        $absences = Absence::with(['user', 'motif'])->get();
+        return view('absences', ['absences' => $absences]);
     }
 
     /**
@@ -33,27 +34,28 @@ class AbsenceController extends Controller
 
     /**
      * Display the specified resource.
+     * @param Absence $absence
+     *
      */
     public function show(Absence $absence)
     {
         $absence = Absence::with(['user', 'motif'])->findOrFail($absence->id);
-
-        // Renvoyer la réponse en JSON avec les informations de l'absence et ses relations
-        return response()->json([
-            'id' => $absence->id,
-            'user' => [
-            'id' => $absence->user->id,
-            'nom' => $absence->user->nom,
-            'prenom' => $absence->user->prenom,
-            ],
-            'motif' => [
-            'id' => $absence->motif->id,
-            'nom'=> $absence->motif->nom,
-            'description' => $absence->motif->description,
-            ],
-            'date_debut' => $absence->date_debut,
-            'date_fin' => $absence->date_fin,
-        ]);
+        // $reponse = [
+        //     'id' => $absence->id,
+        //     'user' => [
+        //     'id' => $absence->user->id,
+        //     'nom' => $absence->user->nom,
+        //     'prenom' => $absence->user->prenom,
+        //     ],
+        //     'motif' => [
+        //     'id' => $absence->motif->id,
+        //     'nom'=> $absence->motif->nom,
+        //     'description' => $absence->motif->description,
+        //     ],
+        //     'date_debut' => $absence->date_debut,
+        //     'date_fin' => $absence->date_fin,
+        // ];
+        return view('absence', ['absence' => $absence]);
     }
 
     /**
