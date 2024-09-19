@@ -9,19 +9,29 @@
         @method('PUT')
         <div>
             <label for="nom" class="block text-lg font-medium text-gray-700">Nom</label>
-            <input type="text" name="nom" id="nom" value="{{ $motif->nom }}" class="mt-2 block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-lg">
+            <input type="text" name="nom" id="nom" value="{{ old('nom',$motif->nom) }}" class="mt-2 block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-lg">
+            @error('nom')
+            <p class="text-red-500">{{ $message }}</p>
+            @enderror
         </div>
         <div>
             <label for="description" class="block text-lg font-medium text-gray-700">Description</label>
-            <input type="text" name="description" id="description" value="{{ $motif->description }}" class="mt-2 block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-lg">
+            <input type="text" name="description" id="description" value="{{ old('description',$motif->description) }}" class="mt-2 block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-lg">
+            @error('description')
+            <p class="text-red-500">{{ $message }}</p>
+            @enderror
         </div>
         <div class="flex items-start">
             <div class="flex items-center h-5">
-                <input type="checkbox" name="is_accessible_salarie" id="is_accessible_salarie" {{ $motif->is_accessible_salarie == 1 ? 'checked' : '' }} class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded">
+                <input type="checkbox" name="is_accessible_salarie" id="is_accessible_salarie" {{ old('is_accessible_salarie', $motif->is_accessible_salarie) ? 'checked' : '' }}
+                class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded">
             </div>
             <div class="ml-3 text-lg">
                 <label for="is_accessible_salarie" class="font-medium text-gray-700">Accessible aux salariés</label>
             </div>
+            @error('is_accessible_salarie')
+            <p class="text-red-500">{{ $message }}</p>
+            @enderror
         </div>
         <div>
             <button type="submit" class="inline-flex justify-center py-3 px-6 border border-transparent shadow-sm text-lg font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">

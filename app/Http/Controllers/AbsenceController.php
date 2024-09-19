@@ -2,27 +2,28 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\AbsencesRequest;
 use App\Models\Absence;
 use App\Models\Motif;
 use App\Models\User;
-use Illuminate\Http\Request;
-use View;
 
 class AbsenceController extends Controller
 {
     /**
      * Display a listing of the resource.
-    * @return \Illuminate\View\View
+     *
+     * @return \Illuminate\View\View
      */
     public function index()
     {
-        $absences = Absence::with(['user', 'motif'])->get();
+        $absences = Absence::withTrashed()->with(['user', 'motif'])->get();
 
         return view('absences.index', ['absences' => $absences]);
     }
 
     /**
      * Show the form for creating a new resource.
+     *
      * @return \Illuminate\View\View
      */
     public function create()
@@ -38,9 +39,10 @@ class AbsenceController extends Controller
 
     /**
      * Store a newly created resource in storage.
+     *
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function store(Request $request)
+    public function store(AbsencesRequest $request)
     {
         $absence = new Absence();
         $absence->user()->associate($request->input('user_id'));
@@ -54,11 +56,12 @@ class AbsenceController extends Controller
 
     /**
      * Display the specified resource.
+     *
      * @return \Illuminate\View\View
      */
-    public function show(Absence $absence)
+    public function show(int $id)
     {
-        $absence = Absence::with(['user', 'motif'])->findOrFail($absence->id);
+        $absence = Absence::withTrashed()->with(['user', 'motif'])->findOrFail($id);
 
         // $reponse = [
         //     'id' => $absence->id,
@@ -80,10 +83,13 @@ class AbsenceController extends Controller
 
     /**
      * Show the form for editing the specified resource.
+     *
      * @return \Illuminate\View\View
      */
-    public function edit(Absence $absence)
+    public function edit(int $id)
     {
+        $absence = Absence::withTrashed()->with(['user', 'motif'])->findOrFail($id);
+
         $users = User::all();
         $motifs = Motif::all();
 
@@ -96,9 +102,10 @@ class AbsenceController extends Controller
 
     /**
      * Update the specified resource in storage.
+     *
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function update(Request $request, Absence $absence)
+    public function update(AbsencesRequest $request, Absence $absence)
     {
         $absence->user()->associate($request->input('user_id'));
         $absence->motif()->associate($request->input('motif_id'));
@@ -111,10 +118,12 @@ class AbsenceController extends Controller
 
     /**
      * Remove the specified resource from storage.
+     *
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function destroy(Absence $absence)
+    public function destroy(int $id)
     {
+        $absence = Absence::withTrashed()->with(['user', 'motif'])->findOrFail($id);
         $absence->delete();
 
         return redirect()->route('absences.index');

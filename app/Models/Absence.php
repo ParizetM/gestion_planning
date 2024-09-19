@@ -5,8 +5,8 @@ namespace App\Models;
 use Database\Factories\AbsenceFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
  * @property int $id
@@ -27,14 +27,14 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @method static \Illuminate\Database\Eloquent\Builder|Absence whereMotifId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Absence whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Absence whereUserId($value)
+ *
  * @mixin \Eloquent
- *
- *
  */
 class Absence extends Model
 {
     /** @use HasFactory<AbsenceFactory>  */
     use HasFactory;
+
     use SoftDeletes;
 
     /**

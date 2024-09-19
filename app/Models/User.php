@@ -31,8 +31,10 @@ class User extends Model
 {
     /** @use HasFactory<UserFactory>  */
     use HasFactory;
+
     /**
      * Summary of absences
+     *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany<Absence>
      */
     public function absences()

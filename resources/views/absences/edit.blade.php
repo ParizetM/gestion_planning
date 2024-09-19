@@ -11,25 +11,37 @@
             <label for="motif_id" class="block text-lg font-medium text-gray-700">Motif</label>
             <select name="motif_id" id="motif_id" class="mt-2 block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-lg">
                 @foreach($motifs as $motif)
-                    <option value="{{ $motif->id }}" {{ $motif->id == $absence->motif_id ? 'selected' : '' }}>{{ $motif->nom }}</option>
+                    <option value="{{ $motif->id }}" {{ old('motif_id', $absence->motif_id) == $motif->id ? 'selected' : '' }}>{{ $motif->nom }}</option>
                 @endforeach
             </select>
+            @error('motif_id')
+                <span class="text-red-500 text-sm">{{ $message }}</span>
+            @enderror
         </div>
         <div>
             <label for="user_id" class="block text-lg font-medium text-gray-700">Utilisateur</label>
             <select name="user_id" id="user_id" class="mt-2 block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-lg">
                 @foreach($users as $user)
-                    <option value="{{ $user->id }}" {{ $user->id == $absence->user_id ? 'selected' : '' }}>{{ $user->nom }} {{ $user->prenom }}</option>
+                    <option value="{{ $user->id }}" {{ old('user_id', $absence->user_id) == $user->id ? 'selected' : '' }}>{{ $user->nom }} {{ $user->prenom }}</option>
                 @endforeach
             </select>
+            @error('user_id')
+                <span class="text-red-500 text-sm">{{ $message }}</span>
+            @enderror
         </div>
         <div>
             <label for="date_debut" class="block text-lg font-medium text-gray-700">Date de début</label>
-            <input type="date" name="date_debut" id="date_debut" value="{{ $absence->date_debut }}" class="mt-2 block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-lg">
+            <input type="date" name="date_debut" id="date_debut" value="{{ old('date_debut', $absence->date_debut) }}" class="mt-2 block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-lg">
+            @error('date_debut')
+                <span class="text-red-500 text-sm">{{ $message }}</span>
+            @enderror
         </div>
         <div>
             <label for="date_fin" class="block text-lg font-medium text-gray-700">Date de fin</label>
-            <input type="date" name="date_fin" id="date_fin" value="{{ $absence->date_fin }}" class="mt-2 block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-lg">
+            <input type="date" name="date_fin" id="date_fin" value="{{ old('date_fin', $absence->date_fin) }}" class="mt-2 block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-lg">
+            @error('date_fin')
+                <span class="text-red-500 text-sm">{{ $message }}</span>
+            @enderror
         </div>
         <div>
             <button type="submit" class="inline-flex justify-center py-3 px-6 border border-transparent shadow-sm text-lg font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
