@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Database\Factories\motifFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -28,9 +29,14 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  */
 class Motif extends Model
 {
+    /** @use HasFactory<motifFactory>  */
     use HasFactory;
     use SoftDeletes;
 
+    /**
+     * Summary of absences
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany<Absence>
+     */
     public function absences()
     {
         return $this->hasMany(Absence::class);

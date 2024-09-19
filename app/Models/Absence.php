@@ -2,10 +2,11 @@
 
 namespace App\Models;
 
+use Database\Factories\AbsenceFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
-
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 /**
  * @property int $id
@@ -28,26 +29,30 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @method static \Illuminate\Database\Eloquent\Builder|Absence whereUserId($value)
  * @mixin \Eloquent
  *
+ *
  */
 class Absence extends Model
 {
+    /** @use HasFactory<AbsenceFactory>  */
     use HasFactory;
     use SoftDeletes;
+
     /**
-     * Summary of user
+     * Relation avec l'utilisateur (user) qui possède cette absence.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
-     *
+     * @return BelongsTo<User, Absence>
      */
-    public function user()
+    public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
     }
+
     /**
-     * Summary of motif
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     * Relation avec le motif de l'absence.
+     *
+     * @return BelongsTo<Motif, Absence>
      */
-    public function motif()
+    public function motif(): BelongsTo
     {
         return $this->belongsTo(Motif::class);
     }

@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Database\Factories\UserFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -28,8 +29,12 @@ use Illuminate\Database\Eloquent\Model;
  */
 class User extends Model
 {
+    /** @use HasFactory<UserFactory>  */
     use HasFactory;
-
+    /**
+     * Summary of absences
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany<Absence>
+     */
     public function absences()
     {
         return $this->hasMany(Absence::class);
