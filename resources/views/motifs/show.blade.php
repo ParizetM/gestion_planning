@@ -16,7 +16,11 @@
         <form action="{{ route('motifs.destroy', $motif) }}" method="POST" class="bg-white shadow-md rounded-lg p-6">
             @csrf
             @method('DELETE')
+            @if ($motif->deleted_at == null)
             <button type="submit" class="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600">Supprimer</button>
+            @else
+            <button type="submit" class="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600">Restaurer</button>
+            @endif
         </form>
     </div>
 @endsection

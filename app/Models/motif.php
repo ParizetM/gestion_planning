@@ -4,6 +4,8 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
+use Symfony\Contracts\Translation\TranslatorTrait;
 
 /**
  *
@@ -28,6 +30,7 @@ use Illuminate\Database\Eloquent\Model;
 class motif extends Model
 {
     use HasFactory;
+    use SoftDeletes;
     public function absences()
     {
         return $this->hasMany(Absence::class);

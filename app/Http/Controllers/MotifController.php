@@ -14,7 +14,7 @@ class MotifController extends Controller
     public function index()
     {
 
-        $motifs = motif::all();
+        $motifs = motif::withTrashed()->get();
         return view('motifs.index', ['motifs' => $motifs]);
     }
 
@@ -42,10 +42,10 @@ class MotifController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(motif $motif)
+    public function show($id)
     {
-
-        return view('motifs.show',['motif' => $motif]);
+        $motif = motif::withTrashed()->findOrFail($id);
+        return view('motifs.show', ['motif' => $motif]);
     }
 
     /**
@@ -75,10 +75,14 @@ class MotifController extends Controller
     {
         // Check for related Absence records and handle them
         if ($motif->absences()->count() > 0) {
+            session()->put('message', 'Ce motif est utilisé dans des absences');
             return redirect()->route('motifs.show',$motif);
         }
-
-        $motif->delete();
+        if ($motif->deleted_at == null) {
+            $motif->delete();
+        } else {
+            $motif->restore();
+        }
         return redirect()->route('motifs.index');
     }
 }
