@@ -9,73 +9,66 @@ class UserController extends Controller
 {
     /**
      * Display a listing of the resource.
+     * @return \Illuminate\View\View
      */
     public function index()
     {
-        //
+        $users = User::all();
+
+        return view('users.index', ['users' => $users]);
     }
 
     /**
      * Show the form for creating a new resource.
+     * @return \Illuminate\View\View
      */
     public function create()
     {
-        //
+        return view('users.create');
     }
 
     /**
      * Store a newly created resource in storage.
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function store(Request $request)
     {
-        //
+        return redirect()->route('users.index');
     }
 
     /**
      * Display the specified resource.
+     * @return \Illuminate\View\View
      */
     public function show(User $user)
     {
-        $user = User::with('absences')->findOrFail($user->id);
-
-        // Renvoyer la réponse en JSON avec les informations de l'utilisateur et ses absences
-        return response()->json([
-            'id' => $user->id,
-            'nom' => $user->nom,
-            'prenom' => $user->prenom,
-            'salaries' => $user->salaries,
-            'absences' => $user->absences->map(function ($absence) {
-                return [
-                    'id' => $absence->id,
-                    'motif' => $absence->motif->nom,
-                    'date_debut' => $absence->date_debut,
-                    'date_fin' => $absence->date_fin,
-                ];
-            }),
-        ]);
+        return view('users.show', ['user' => $user]);
     }
 
     /**
      * Show the form for editing the specified resource.
+     * @return \Illuminate\View\View
      */
     public function edit(User $user)
     {
-        //
+        return view('users.edit', ['user' => $user]);
     }
 
     /**
      * Update the specified resource in storage.
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function update(Request $request, User $user)
     {
-        //
+        return redirect()->route('users.index');
     }
 
     /**
      * Remove the specified resource from storage.
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function destroy(User $user)
     {
-        //
+        return redirect()->route('users.index');
     }
 }
