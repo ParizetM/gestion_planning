@@ -49,7 +49,7 @@ class Absence extends Model
 
     /**
      * Relation avec le motif de l'absence.
-     *
+     * 
      * @return BelongsTo<Motif, Absence>
      */
     public function motif(): BelongsTo

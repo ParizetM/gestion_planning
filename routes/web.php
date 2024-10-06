@@ -1,14 +1,23 @@
 <?php
 
-use App\Http\Controllers\AbsenceController;
-use App\Http\Controllers\MotifController;
-use App\Http\Controllers\UserController;
+use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('welcome');
-})->name('welcome');
+});
 
-Route::get('/users/{user}', [UserController::class, 'show']);
-Route::resource('absences', AbsenceController::class);
-Route::resource('motifs', MotifController::class);
+Route::get('/dashboard', function () {
+    return view('dashboard');
+})->middleware(['auth', 'verified'])->name('dashboard');
+
+Route::middleware('auth')->group(function () {
+    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+    Route::resource('users', UserController::class);
+    Route::resource('motifs', MotifController::class);
+    Route::resource('absences', AbsenceController::class);
+});
+
+require __DIR__.'/auth.php';
