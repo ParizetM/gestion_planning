@@ -1,10 +1,12 @@
 <?php
 
 namespace App\Models;
-
+use Illuminate\Foundation\Auth\User as Authenticatable;
 use Database\Factories\UserFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use App\Models\Permission;
 
 /**
  * @property int $id
@@ -13,6 +15,9 @@ use Illuminate\Database\Eloquent\Model;
  * @property int $salaries
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property string $email
+ * @property string $password
+ * @property Permission $permission
  *
  * @method static \Database\Factories\UserFactory factory($count = null, $state = [])
  * @method static \Illuminate\Database\Eloquent\Builder|User newModelQuery()
@@ -27,7 +32,7 @@ use Illuminate\Database\Eloquent\Model;
  *
  * @mixin \Eloquent
  */
-class User extends Model
+class User extends Authenticatable
 {
     /** @use HasFactory<UserFactory>  */
     use HasFactory;
@@ -41,4 +46,14 @@ class User extends Model
     {
         return $this->hasMany(Absence::class);
     }
+    public function permission(): BelongsTo
+    {
+        return $this->belongsTo(Permission::class);
+    }
+    protected $fillable = ['nom'
+        , 'prenom'
+        , 'email'
+        , 'password'
+        , 'salaries'
+    ];
 }

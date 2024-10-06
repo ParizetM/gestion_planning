@@ -11,6 +11,9 @@
 
 </head>
 <body class="bg-gray-100 text-gray-900">
+    <header>
+        @include('layouts.navigation')
+    </header>
     @yield('content')
 </body>
 </html>

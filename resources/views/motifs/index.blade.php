@@ -5,21 +5,21 @@
         <div class="mb-4">
             <p class="text-red-500">@error('record') {{$message}} @enderror</p>
         </div>
-        <h1 class="text-2xl font-bold mb-4">Motifs</h1>
-        <a href="{{route('welcome')}}" class="text-blue-500 hover:underline mb-4 inline-block"><< Retour</a>
+        <h1 class="text-2xl font-bold mb-4">{{ __('Reasons') }}</h1>
+        <a href="{{route('dashboard')}}" class="text-blue-500 hover:underline mb-4 inline-block"><< {{ __('Back') }}</a>
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
             @foreach ($motifs as $motif)
             @if ($motif->deleted_at == null)
 
                 <div class="bg-white shadow-md rounded-lg p-4">
                     <h3 class="text-xl font-semibold mb-2">
-                        <a href="{{ route('motifs.show', $motif->id) }}" class="text-blue-500 hover:underline">Motif n°{{$motif->id}}</a>
+                        <a href="{{ route('motifs.show', $motif->id) }}" class="text-blue-500 hover:underline">{{ __('Reason') }} n°{{$motif->id}}</a>
                     </h3>
                     <ul class="list-disc pl-5">
-                        <li class="mb-1"><strong>Nom:</strong> {{$motif->nom}}</li>
-                        <li class="mb-1"><strong>Description:</strong> {{$motif->description}}</li>
+                        <li class="mb-1"><strong>{{ __('Name') }}:</strong> {{$motif->nom}}</li>
+                        <li class="mb-1"><strong>{{ __('Description') }}:</strong> {{$motif->description}}</li>
                         <li>
-                            <a href="{{ route('motifs.show', ['motif' => $motif])}}" class="text-blue-500 hover:underline">Voir plus</a>
+                            <a href="{{ route('motifs.show', ['motif' => $motif])}}" class="text-blue-500 hover:underline">{{ __('see more') }}</a>
                         </li>
                     </ul>
                 </div>
@@ -27,7 +27,7 @@
             @endforeach
         </div>
         <div class="mt-4">
-            <a href="{{route('motifs.create')}}" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-700">Créer un motif</a>
+            <a href="{{route('motifs.create')}}" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-700">{{ __('Créer un motif') }}</a>
         </div>
         <div class="container mx-auto p-4 bg-gray">
             <div class="mb-4">
@@ -41,10 +41,10 @@
                             <a href="{{ route('motifs.show', $motif->id) }}" class="text-blue-500 hover:underline">Motif n°{{$motif->id}}</a>
                         </h3>
                         <ul class="list-disc pl-5">
-                            <li class="mb-1"><strong>Nom:</strong> {{$motif->nom}}</li>
-                            <li class="mb-1"><strong>Description:</strong> {{$motif->description}}</li>
+                            <li class="mb-1"><strong>{{ __('Name') }}:</strong> {{$motif->nom}}</li>
+                            <li class="mb-1"><strong>{{ __('Description') }}:</strong> {{$motif->description}}</li>
                             <li>
-                                <a href="{{ route('motifs.show', ['motif' => $motif])}}" class="text-blue-500 hover:underline">Voir plus</a>
+                                <a href="{{ route('motifs.show', ['motif' => $motif])}}" class="text-blue-500 hover:underline">{{ __('See more') }}</a>
                             </li>
                         </ul>
                     </div>

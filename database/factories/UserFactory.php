@@ -19,7 +19,10 @@ class UserFactory extends Factory
         return [
             'nom' => $this->faker->lastName,
             'prenom' => $this->faker->firstName,
+            'email' => $this->faker->unique()->safeEmail,
             'salaries' => $this->faker->boolean(),
+            'permission_id' => $this->faker->numberBetween(1, 2),
+            'password' => $this->faker->password,
         ];
     }
 }
