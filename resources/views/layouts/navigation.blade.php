@@ -14,7 +14,7 @@
                         {{ __('Absences') }}
                     </x-nav-link>
                     <x-nav-link :href="route('motifs.index')" :active="request()->routeIs('motifs.index')">
-                        {{ __('Motifs') }}
+                        {{ __('Reasons') }}
                     </x-nav-link>
                     @if (session('locale') != 'fr')
                     <x-nav-link :href="route('language.change', ['locale' => 'fr'])">
@@ -47,9 +47,9 @@
                     </x-slot>
 
                     <x-slot name="content">
-                        {{-- <x-dropdown-link :href="route('profile.edit')">
+                        <x-dropdown-link :href="route('profile.edit')">
                             {{ __('Profile') }}
-                        </x-dropdown-link> --}}
+                        </x-dropdown-link>
 
                         <!-- Authentication -->
                         <form method="POST" action="{{ route('logout') }}">

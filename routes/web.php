@@ -1,10 +1,11 @@
 <?php
 
-use App\Http\Controllers\ProfileController;
-use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\UserController;
 use App\Http\Controllers\AbsenceController;
 use App\Http\Controllers\MotifController;
+use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\UserController;
+use Illuminate\Support\Facades\Route;
+
 Route::middleware('locale')->group(function () {
     Route::get('/', function () {
         return view('dashboard');
@@ -45,5 +46,3 @@ Route::middleware('locale')->group(function () {
 
     require __DIR__ . '/auth.php';
 });
-
-

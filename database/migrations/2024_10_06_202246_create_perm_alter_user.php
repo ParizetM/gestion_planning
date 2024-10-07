@@ -3,6 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use App\Models\Permission;
 
 return new class extends Migration
 {
@@ -16,6 +17,8 @@ return new class extends Migration
             $table->string('nom', 255);
             $table->timestamps();
         });
+        Permission::factory()->create(['nom' => 'admin']);
+        Permission::factory()->create(['nom' => 'salarie']);
         Schema::table('users', function (Blueprint $table) {
             $table->foreignId('permission_id')->default(2)->constrained('permissions');
         });

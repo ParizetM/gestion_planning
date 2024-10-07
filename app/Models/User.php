@@ -1,12 +1,11 @@
 <?php
 
 namespace App\Models;
-use Illuminate\Foundation\Auth\User as Authenticatable;
+
 use Database\Factories\UserFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use App\Models\Permission;
+use Illuminate\Foundation\Auth\User as Authenticatable;
 
 /**
  * @property int $id
@@ -36,6 +35,8 @@ class User extends Authenticatable
 {
     /** @use HasFactory<UserFactory>  */
     use HasFactory;
+    protected $fillable = ['nom', 'prenom', 'email', 'password', 'salaries',
+    ];
 
     /**
      * Summary of absences
@@ -50,10 +51,4 @@ class User extends Authenticatable
     {
         return $this->belongsTo(Permission::class);
     }
-    protected $fillable = ['nom'
-        , 'prenom'
-        , 'email'
-        , 'password'
-        , 'salaries'
-    ];
 }

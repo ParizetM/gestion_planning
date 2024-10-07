@@ -6,6 +6,7 @@ use App\Http\Requests\AbsencesRequest;
 use App\Models\Absence;
 use App\Models\Motif;
 use App\Models\User;
+use Illuminate\Http\RedirectResponse;
 
 class AbsenceController extends Controller
 {
@@ -42,7 +43,7 @@ class AbsenceController extends Controller
      *
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function store(AbsencesRequest $request)
+    public function store(AbsencesRequest $request): RedirectResponse
     {
         $absence = new Absence();
         $absence->user()->associate($request->input('user_id'));

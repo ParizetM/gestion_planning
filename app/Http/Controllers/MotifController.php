@@ -106,5 +106,4 @@ class MotifController extends Controller
 
         return redirect()->route('motifs.index');
     }
-
 }

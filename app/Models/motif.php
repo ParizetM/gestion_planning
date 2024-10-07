@@ -24,6 +24,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @method static \Illuminate\Database\Eloquent\Builder|Motif whereIsAccessibleSalarie($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Motif whereNom($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Motif whereUpdatedAt($value)
+ *
  * @mixin \Eloquent
  */
 class Motif extends Model
@@ -32,7 +33,6 @@ class Motif extends Model
     use HasFactory;
 
     use SoftDeletes;
-
 
     /**
      * Summary of absences

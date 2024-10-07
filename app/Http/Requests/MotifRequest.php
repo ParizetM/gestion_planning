@@ -29,6 +29,7 @@ class MotifRequest extends FormRequest
     }
     /**
      * Summary of messages
+     *
      * @return array<string,string>
      */
     public function messages(): array
