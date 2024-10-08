@@ -39,8 +39,8 @@ class AbsenceController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
-     *
+     * Summary of store
+     * @param \App\Http\Requests\AbsencesRequest $request
      * @return \Illuminate\Http\RedirectResponse
      */
     public function store(AbsencesRequest $request): RedirectResponse

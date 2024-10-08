@@ -36,7 +36,7 @@ Route::middleware('locale')->group(function () {
     Route::get('/absences', [AbsenceController::class, 'index'])->name('absences.index');
     Route::get('/absences/{absence}', [AbsenceController::class, 'show'])->name('absences.show');
 
-    Route::middleware(['auth','permission:admin,salarie'])->group(function () {
+    Route::middleware(['auth', 'permission:admin,salarie'])->group(function () {
         Route::get('/motifs/{motif}/edit', [MotifController::class, 'edit'])->name('motifs.edit');
         Route::put('/motifs/{motif}', [MotifController::class, 'update'])->name('motifs.update');
     });
@@ -44,5 +44,5 @@ Route::middleware('locale')->group(function () {
     Route::get('/motifs/{motif}', [MotifController::class, 'show'])->name('motifs.show');
     Route::get('change-language/{locale}', [App\Http\Controllers\LanguageController::class, 'changeLanguage'])->name('language.change');
 
-    require __DIR__ . '/auth.php';
+    require __DIR__.'/auth.php';
 });

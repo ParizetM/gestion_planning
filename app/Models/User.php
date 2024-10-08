@@ -14,18 +14,27 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
  * @property int $salaries
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property string|null $password
  * @property string $email
- * @property string $password
- * @property Permission $permission
+ * @property string|null $remember_token
+ * @property int $permission_id
+ *
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Absence> $absences
+ * @property-read int|null $absences_count
+ * @property-read \App\Models\Permission $permission
  *
  * @method static \Database\Factories\UserFactory factory($count = null, $state = [])
  * @method static \Illuminate\Database\Eloquent\Builder|User newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|User newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|User query()
  * @method static \Illuminate\Database\Eloquent\Builder|User whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|User whereEmail($value)
  * @method static \Illuminate\Database\Eloquent\Builder|User whereId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|User whereNom($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|User wherePassword($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|User wherePermissionId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|User wherePrenom($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|User whereRememberToken($value)
  * @method static \Illuminate\Database\Eloquent\Builder|User whereSalaries($value)
  * @method static \Illuminate\Database\Eloquent\Builder|User whereUpdatedAt($value)
  *
@@ -35,6 +44,7 @@ class User extends Authenticatable
 {
     /** @use HasFactory<UserFactory>  */
     use HasFactory;
+
     protected $fillable = ['nom', 'prenom', 'email', 'password', 'salaries',
     ];
 
@@ -47,6 +57,7 @@ class User extends Authenticatable
     {
         return $this->hasMany(Absence::class);
     }
+
     public function permission(): BelongsTo
     {
         return $this->belongsTo(Permission::class);

@@ -11,9 +11,12 @@
 
 </head>
 <body class="bg-gray-100 text-gray-900">
+<div id="app">
     <header>
         @include('layouts.navigation')
     </header>
     @yield('content')
+</div>
 </body>
+
 </html>

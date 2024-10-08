@@ -28,6 +28,7 @@ class AbsencesRequest extends FormRequest
             'motif_id' => 'required|exists:motifs,id',
         ];
     }
+
     /**
      * Summary of messages
      *

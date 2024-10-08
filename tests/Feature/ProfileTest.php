@@ -10,15 +10,29 @@ class ProfileTest extends TestCase
 {
     use RefreshDatabase;
 
-    public function test_profile_page_is_displayed(): void
+    public function test_profile_screen_can_be_rendered(): void
     {
         $user = User::factory()->create();
+        $response = $this->actingAs($user)->get('/profile');
+        $response->assertStatus(200);
+    }
+
+    public function test_profile_information_is_displayed(): void
+    {
+        $user = User::factory()->create([
+            'nom' => 'Test',
+            'prenom' => 'User',
+            'email' => 'test@exemple.com',
+        ]);
 
         $response = $this
             ->actingAs($user)
             ->get('/profile');
 
         $response->assertOk();
+        $response->assertSee('Test');
+        $response->assertSee('User');
+        $response->assertSee('test@exemple.com');
     }
 
     public function test_profile_information_can_be_updated(): void

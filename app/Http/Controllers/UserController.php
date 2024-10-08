@@ -38,6 +38,7 @@ class UserController extends Controller
     {
         // Create a new user with request data
         User::create($request->all());
+
         return redirect()->route('users.index');
     }
 
@@ -70,6 +71,7 @@ class UserController extends Controller
     {
         // Update user with request data
         $user->update($request->all());
+
         return redirect()->route('users.index');
     }
 
@@ -82,6 +84,7 @@ class UserController extends Controller
     {
         // Delete the user
         $user->delete();
+
         return redirect()->route('users.index');
     }
 }

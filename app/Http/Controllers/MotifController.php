@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\MotifRequest;
 use App\Models\Motif;
+use Cache;
 
 class MotifController extends Controller
 {
@@ -14,7 +15,9 @@ class MotifController extends Controller
      */
     public function index()
     {
-        $motifs = motif::withTrashed()->get();
+        $motifs = Cache::remember('motifs', 3600, function () {
+            return motif::withTrashed()->get();
+        });
 
         return view('motifs.index', ['motifs' => $motifs]);
     }
@@ -41,6 +44,7 @@ class MotifController extends Controller
         $motif->description = $request->input('description');
         $motif->is_accessible_salarie = $request->has('is_accessible_salarie') ? 1 : 0;
         $motif->save();
+        Cache::forget('motifs');
 
         return redirect()->route('motifs.index');
     }

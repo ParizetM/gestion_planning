@@ -27,6 +27,7 @@ class MotifRequest extends FormRequest
             'is_accessible_salarie' => '',
         ];
     }
+
     /**
      * Summary of messages
      *
