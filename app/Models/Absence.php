@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Database\Factories\AbsenceFactory;
+use Date;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -10,8 +11,8 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
  * @property int $id
- * @property string $date_debut
- * @property string $date_fin
+ * @property $date_debut
+ * @property $date_fin
  * @property int $user_id
  * @property int $motif_id
  * @property \Illuminate\Support\Carbon|null $created_at

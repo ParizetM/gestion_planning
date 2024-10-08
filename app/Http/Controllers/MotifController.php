@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\MotifRequest;
 use App\Models\Motif;
 use Cache;
+use App\Repositories\MotifsRepository;
 
 class MotifController extends Controller
 {

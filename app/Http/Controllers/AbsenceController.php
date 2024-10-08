@@ -7,6 +7,7 @@ use App\Models\Absence;
 use App\Models\Motif;
 use App\Models\User;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
 
 class AbsenceController extends Controller
 {
@@ -63,22 +64,6 @@ class AbsenceController extends Controller
     public function show(int $id)
     {
         $absence = Absence::withTrashed()->with(['user', 'motif'])->findOrFail($id);
-
-        // $reponse = [
-        //     'id' => $absence->id,
-        //     'user' => [
-        //     'id' => $absence->user->id,
-        //     'nom' => $absence->user->nom,
-        //     'prenom' => $absence->user->prenom,
-        //     ],
-        //     'motif' => [
-        //     'id' => $absence->motif->id,
-        //     'nom'=> $absence->motif->nom,
-        //     'description' => $absence->motif->description,
-        //     ],
-        //     'date_debut' => $absence->date_debut,
-        //     'date_fin' => $absence->date_fin,
-        // ];
         return view('absences.show', ['absence' => $absence]);
     }
 
