@@ -10,8 +10,7 @@ class LanguageController extends Controller
     /**
      * Change the language of the application.
      *
-     * @param string $locale
-     * @return RedirectResponse
+     * @param  string  $locale
      */
     public function changeLanguage($locale): RedirectResponse
     {

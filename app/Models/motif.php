@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-use Database\Factories\motifFactory;
+use Database\Factories\MotifFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -38,11 +38,13 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  */
 class Motif extends Model
 {
-    /** @use HasFactory<motifFactory>  */
+    /** @use HasFactory<MotifFactory>  */
     use HasFactory;
 
     use SoftDeletes;
+
     protected $fillable = ['nom', 'description', 'is_accessible_salarie'];
+
     /**
      * Summary of absences
      *

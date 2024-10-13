@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Factories\Factory;
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\motif>
  */
-class motifFactory extends Factory
+class MotifFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -20,6 +20,7 @@ class motifFactory extends Factory
             'nom' => $this->faker->word,
             'description' => $this->faker->text,
             'is_accessible_salarie' => $this->faker->boolean,
+            'deleted_at' => null,
         ];
     }
 }

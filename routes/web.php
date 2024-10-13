@@ -19,8 +19,7 @@ Route::middleware('locale')->group(function () {
         Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
         Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
         Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-        Route::resource('users', UserController::class);
-        Route::get('/users/{user}', [UserController::class, 'show']);
+
 
         Route::middleware('permission:admin')->group(function () {
             Route::get('/absences/create', [AbsenceController::class, 'create'])->name('absences.create');
@@ -28,6 +27,7 @@ Route::middleware('locale')->group(function () {
             Route::get('/motifs/create', [MotifController::class, 'create'])->name('motifs.create');
             Route::post('/motifs', [MotifController::class, 'store'])->name('motifs.store');
             Route::delete('/motifs/{motif}', [MotifController::class, 'destroy'])->name('motifs.destroy');
+            Route::patch('/motifs/{motif}/restore', [MotifController::class, 'restore'])->name('motifs.restore');
             Route::delete('/absences/{absence}', [AbsenceController::class, 'destroy'])->name('absences.destroy');
             Route::get('/absences/{absence}/edit', [AbsenceController::class, 'edit'])->name('absences.edit');
             Route::put('/absences/{absence}', [AbsenceController::class, 'update'])->name('absences.update');

@@ -22,8 +22,7 @@ class ProfileUpdateRequest extends FormRequest
                 'prenom' => ['required', 'string', 'max:255'],
                 'email' => ['required', 'string', 'lowercase', 'email', 'max:255', Rule::unique(User::class)->ignore($this->user()->id)],
             ];
-        } else {
-            return redirect()->route('login');
         }
+        return redirect()->route('login');
     }
 }

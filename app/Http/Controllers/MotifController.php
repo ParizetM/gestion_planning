@@ -16,7 +16,7 @@ class MotifController extends Controller
     public function index()
     {
         $motifs = Cache::remember('motifs', 3600, function () {
-            return motif::withTrashed()->get();
+            return Motif::withTrashed()->get();
         });
 
         return view('motifs.index', ['motifs' => $motifs]);
@@ -56,7 +56,7 @@ class MotifController extends Controller
      */
     public function show(int $id)
     {
-        $motif = motif::withTrashed()->findOrFail($id);
+        $motif = Motif::withTrashed()->findOrFail($id);
 
         return view('motifs.show', ['motif' => $motif]);
     }
@@ -68,7 +68,7 @@ class MotifController extends Controller
      */
     public function edit(int $id)
     {
-        $motif = motif::withTrashed()->findOrFail($id);
+        $motif = Motif::withTrashed()->findOrFail($id);
 
         return view('motifs.edit', ['motif' => $motif]);
     }
@@ -80,14 +80,14 @@ class MotifController extends Controller
      */
     public function update(MotifRequest $request, int $id)
     {
-        $motif = motif::withTrashed()->findOrFail($id);
+        $motif = Motif::withTrashed()->findOrFail($id);
         $motif->update([
             'nom' => $request->input('nom'),
             'description' => $request->input('description'),
             'is_accessible_salarie' => $request->has('is_accessible_salarie') ? 1 : 0,
         ]);
 
-        return redirect()->route('motifs.show', $motif);
+        return redirect()->route('motifs.show', $motif->id);
     }
 
     /**
@@ -97,6 +97,7 @@ class MotifController extends Controller
      */
     public function destroy(Motif $motif)
     {
+        $motif = Motif::withTrashed()->findOrFail($motif->id);
         // Check for related Absence records and handle them
         if ($motif->absences()->count() > 0) {
             session()->flash('message_erreur', 'Ce motif est utilisé dans des absences');
@@ -105,7 +106,20 @@ class MotifController extends Controller
         }
         if ($motif->deleted_at === null) {
             $motif->delete();
-        } else {
+        }
+
+        return redirect()->route('motifs.index');
+    }
+
+    /**
+     * Restore the specified resource from storage.
+     *
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function restore(int $id)
+    {
+        $motif = Motif::withTrashed()->findOrFail($id);
+        if ($motif->deleted_at !== null) {
             $motif->restore();
         }
 

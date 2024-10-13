@@ -45,6 +45,14 @@ class Absence extends Model
     use HasFactory;
 
     use SoftDeletes;
+
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array<int, string>
+     */
+    protected $fillable = ['date_debut', 'date_fin', 'user_id', 'motif_id'];
+
     /**
      * Relation avec l'utilisateur (user) qui possède cette absence.
      *
@@ -54,14 +62,6 @@ class Absence extends Model
     {
         return $this->belongsTo(User::class);
     }
-
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array<int, string>
-     */
-    protected $fillable = ['date_debut', 'date_fin', 'user_id', 'motif_id'];
-
 
     /**
      * Relation avec le motif de l'absence.

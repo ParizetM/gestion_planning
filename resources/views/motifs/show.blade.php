@@ -13,14 +13,19 @@
             <p class="text-gray-700 mb-4">{{ $motif->is_accessible_salarie == 1 ? 'Oui' : 'Non' }}</p>
             <a href="{{ route('motifs.edit', $motif) }}" class="text-blue-500 hover:underline">{{ __('Edit') }}</a>
         </div>
-        <form action="{{ route('motifs.destroy', $motif) }}" method="POST" class="bg-white shadow-md rounded-lg p-6">
+
+        @if ($motif->deleted_at == null)
+        <form action="{{ route('motifs.destroy', $motif) }}" method="POST" class="bg-white shadow-md rounded-lg p-6 mb-4">
             @csrf
             @method('DELETE')
-            @if ($motif->deleted_at == null)
             <button type="submit" class="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600">{{ __('Delete') }}</button>
-            @else
-            <button type="submit" class="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600">{{ __('Restore') }}</button>
-            @endif
         </form>
+        @else
+        <form action="{{ route('motifs.restore', $motif) }}" method="POST" class="bg-white shadow-md rounded-lg p-6">
+            @csrf
+            @method('PATCH')
+            <button type="submit" class="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600">{{ __('Restore') }}</button>
+        </form>
+        @endif
     </div>
 @endsection
