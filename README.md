@@ -93,6 +93,4 @@ Si vous souhaitez un compte administrateur :
 Mail: admin@admin.com
 MDP: Not24get
 
-### 8. Accéder à l'application
-
-Maintenant, vous devrez pouvoir atteindre l'application en allant sur l'url que vous avez indiqué.
+### 8. Accéder à l'application !
