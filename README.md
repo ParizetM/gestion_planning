@@ -2,7 +2,7 @@
 
 ## Introduction
 
-Cette application Laravel est conçue pour gérer les absences des utilisateurs. Elle permet aux utilisateurs de demander des absences et aux administrateurs de gérer ces demandes. Les motifs d'absence peuvent également être définis et gérés.
+Cette application Laravel a été conçu en cours
 
 ## Fonctionnalités
 
