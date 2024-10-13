@@ -65,7 +65,6 @@ DB_PASSWORD=votre_mot_de_passe
 composer install
 npm install
 npm run build
-npm run dev
 ```
 
 ### 4. Générer la clé de l'application
