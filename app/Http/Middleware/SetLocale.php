@@ -8,10 +8,20 @@ use Illuminate\Support\Facades\Session;
 
 class SetLocale
 {
-    public function handle($request, Closure $next)
+    /**
+     * Handle an incoming request.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \Closure  $next
+     * @return mixed
+     */
+    public function handle($request, Closure $next): mixed
     {
         if (Session::has('locale')) {
-            App::setLocale(Session::get('locale'));
+            $locale = Session::get('locale');
+            if (is_string($locale) && in_array($locale, ['en', 'fr'])) {
+                App::setLocale($locale);
+            }
         }
 
         return $next($request);

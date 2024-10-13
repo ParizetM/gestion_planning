@@ -42,7 +42,7 @@ class Motif extends Model
     use HasFactory;
 
     use SoftDeletes;
-
+    protected $fillable = ['nom', 'description', 'is_accessible_salarie'];
     /**
      * Summary of absences
      *

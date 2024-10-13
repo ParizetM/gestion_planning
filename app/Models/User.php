@@ -58,6 +58,11 @@ class User extends Authenticatable
         return $this->hasMany(Absence::class);
     }
 
+    /**
+     * Summary of permission
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<Permission, User>
+     */
     public function permission(): BelongsTo
     {
         return $this->belongsTo(Permission::class);

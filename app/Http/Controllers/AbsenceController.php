@@ -91,11 +91,12 @@ class AbsenceController extends Controller
      */
     public function update(AbsencesRequest $request, Absence $absence)
     {
-        $absence->user()->associate($request->input('user_id'));
-        $absence->motif()->associate($request->input('motif_id'));
-        $absence->date_debut = $request->input('date_debut');
-        $absence->date_fin = $request->input('date_fin');
-        $absence->save();
+        $absence->update([
+            'date_debut' => $request->date_debut,
+            'date_fin' => $request->date_fin,
+            'motif_id' => $request->motif_id,
+            'user_id' => $request->user_id,
+        ]);
 
         return redirect()->route('absences.index');
     }

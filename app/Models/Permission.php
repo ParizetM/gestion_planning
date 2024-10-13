@@ -36,6 +36,11 @@ class Permission extends Model
 
     protected $fillable = ['nom'];
 
+    /**
+     * Summary of users
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany<User>
+     */
     public function users(): BelongsToMany
     {
         return $this->belongsToMany(User::class);

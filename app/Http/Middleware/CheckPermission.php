@@ -18,6 +18,9 @@ class CheckPermission
     public function handle(Request $request, Closure $next, ...$permissions): Response
     {
         $user = Auth::user();
+        if ($user === null) {
+            abort(403);
+        }
         if (in_array(needle: $user->permission->nom, haystack: $permissions)) {
             return $next($request);
         }

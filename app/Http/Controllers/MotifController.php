@@ -39,11 +39,11 @@ class MotifController extends Controller
      */
     public function store(MotifRequest $request)
     {
-        $motif = new motif();
-        $motif->nom = $request->input('nom');
-        $motif->description = $request->input('description');
-        $motif->is_accessible_salarie = $request->has('is_accessible_salarie') ? 1 : 0;
-        $motif->save();
+        Motif::create([
+            'nom' => $request->nom,
+            'description' => $request->description,
+            'is_accessible_salarie' => $request->has('is_accessible_salarie') ? 1 : 0,
+        ]);
         Cache::forget('motifs');
 
         return redirect()->route('motifs.index');
@@ -81,10 +81,11 @@ class MotifController extends Controller
     public function update(MotifRequest $request, int $id)
     {
         $motif = motif::withTrashed()->findOrFail($id);
-        $motif->nom = $request->input('nom');
-        $motif->description = $request->input('description');
-        $motif->is_accessible_salarie = $request->has('is_accessible_salarie') ? 1 : 0;
-        $motif->save();
+        $motif->update([
+            'nom' => $request->input('nom'),
+            'description' => $request->input('description'),
+            'is_accessible_salarie' => $request->has('is_accessible_salarie') ? 1 : 0,
+        ]);
 
         return redirect()->route('motifs.show', $motif);
     }

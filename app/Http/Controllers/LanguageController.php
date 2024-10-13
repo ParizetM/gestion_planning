@@ -7,6 +7,12 @@ use Illuminate\Support\Facades\Session;
 
 class LanguageController extends Controller
 {
+    /**
+     * Change the language of the application.
+     *
+     * @param string $locale
+     * @return RedirectResponse
+     */
     public function changeLanguage($locale): RedirectResponse
     {
         // Vérifie si la langue est supportée
