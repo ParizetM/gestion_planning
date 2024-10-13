@@ -3,7 +3,6 @@
 namespace App\Models;
 
 use Database\Factories\AbsenceFactory;
-use Date;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -11,8 +10,8 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
  * @property int $id
- * @property $date_debut
- * @property $date_fin
+ * @property string $date_debut
+ * @property string $date_fin
  * @property int $user_id
  * @property int $motif_id
  * @property \Illuminate\Support\Carbon|null $created_at
@@ -46,7 +45,6 @@ class Absence extends Model
     use HasFactory;
 
     use SoftDeletes;
-
     /**
      * Relation avec l'utilisateur (user) qui possède cette absence.
      *
@@ -56,6 +54,14 @@ class Absence extends Model
     {
         return $this->belongsTo(User::class);
     }
+
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array<int, string>
+     */
+    protected $fillable = ['date_debut', 'date_fin', 'user_id', 'motif_id'];
+
 
     /**
      * Relation avec le motif de l'absence.

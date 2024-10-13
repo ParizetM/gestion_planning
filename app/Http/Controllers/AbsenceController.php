@@ -7,7 +7,6 @@ use App\Models\Absence;
 use App\Models\Motif;
 use App\Models\User;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Http\Request;
 
 class AbsenceController extends Controller
 {
@@ -41,17 +40,15 @@ class AbsenceController extends Controller
 
     /**
      * Summary of store
-     * @param \App\Http\Requests\AbsencesRequest $request
-     * @return \Illuminate\Http\RedirectResponse
      */
     public function store(AbsencesRequest $request): RedirectResponse
     {
-        $absence = new Absence();
-        $absence->user()->associate($request->input('user_id'));
-        $absence->motif()->associate($request->input('motif_id'));
-        $absence->date_debut = $request->input('date_debut');
-        $absence->date_fin = $request->input('date_fin');
-        $absence->save();
+        Absence::create([
+            'date_debut' => $request->date_debut,
+            'date_fin' => $request->date_fin,
+            'motif_id' => $request->motif_id,
+            'user_id' => $request->user_id,
+        ]);
 
         return redirect()->route('absences.index');
     }
@@ -64,6 +61,7 @@ class AbsenceController extends Controller
     public function show(int $id)
     {
         $absence = Absence::withTrashed()->with(['user', 'motif'])->findOrFail($id);
+
         return view('absences.show', ['absence' => $absence]);
     }
 
